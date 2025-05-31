@@ -1,0 +1,1618 @@
+<!DOCTYPE html>
+<html lang="ru">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <link rel="icon" type="image/png" href="https://sdmntprwestus3.oaiusercontent.com/files/00000000-cce0-61fd-beb6-b572ac113ee2/raw?se=2025-05-31T16%3A25%3A30Z&sp=r&sv=2024-08-04&sr=b&scid=37e4519a-357d-5661-b664-43bfadb01a0e&skoid=24a7dec3-38fc-4904-b888-8abe0855c442&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-05-30T23%3A21%3A44Z&ske=2025-05-31T23%3A21%3A44Z&sks=b&skv=2024-08-04&sig=RKztIktRQEwb6SpDZKI8Ldr4dtJcAjovxTwXWzFyoRU%3D">
+   EcoBike - Прокат электросамокатов
+  </title>
+  <style>
+   /* Общие стили */
+        :root {
+            --primary: #2ecc71;
+            --secondary: #3498db;
+            --dark: #2c3e50;
+            --light: #ecf0f1;
+            --danger: #e74c3c;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Шапка */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+        
+        .logo h1 {
+            color: var(--primary);
+            font-size: 24px;
+            font-weight: 700;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .mobile-menu {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        /* Герой секция */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1576435728678-68d0fbf94e91?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+            margin-top: 80px;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h2 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .btn:hover {
+            background-color: #27ae60;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary);
+            margin-left: 15px;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #2980b9;
+        }
+        
+        /* О сервисе */
+        .about {
+            padding: 100px 0;
+            background-color: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h2 {
+            font-size: 36px;
+            color: var(--dark);
+            margin-bottom: 15px;
+        }
+        
+        .section-title p {
+            color: #7f8c8d;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature {
+            text-align: center;
+            padding: 30px;
+            border-radius: 10px;
+            transition: all 0.3s;
+            background-color: #f9f9f9;
+        }
+        
+        .feature:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature i {
+            font-size: 50px;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .feature h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        /* Как это работает */
+        .how-it-works {
+            padding: 100px 0;
+            background-color: #f9f9f9;
+        }
+        
+        .steps {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-top: 50px;
+        }
+        
+        .step {
+            flex: 1;
+            min-width: 250px;
+            text-align: center;
+            padding: 0 20px;
+            position: relative;
+        }
+        
+        .step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 40px;
+            right: -30px;
+            width: 60px;
+            height: 2px;
+            background-color: var(--primary);
+        }
+        
+        .step-number {
+            width: 80px;
+            height: 80px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            font-weight: bold;
+            margin: 0 auto 20px;
+        }
+        
+        .step h3 {
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        /* Тарифы */
+        .pricing {
+            padding: 100px 0;
+            background-color: white;
+        }
+        
+        .plans {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .plan {
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        
+        .plan:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .plan-header {
+            background-color: var(--primary);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .plan-header h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        
+        .plan-header .price {
+            font-size: 40px;
+            font-weight: bold;
+        }
+        
+        .plan-header .price span {
+            font-size: 16px;
+            font-weight: normal;
+        }
+        
+        .plan-body {
+            padding: 30px;
+        }
+        
+        .plan-body ul {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+        
+        .plan-body ul li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .plan-body ul li:last-child {
+            border-bottom: none;
+        }
+        
+        .plan-body .btn {
+            width: 100%;
+            text-align: center;
+        }
+        
+        /* Карта */
+        .map {
+            padding: 100px 0;
+            background-color: #f9f9f9;
+        }
+        
+        #station-map {
+            height: 500px;
+            width: 100%;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Отзывы */
+        .testimonials {
+            padding: 100px 0;
+            background-color: white;
+        }
+        
+        .reviews {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .review {
+            background-color: #f9f9f9;
+            padding: 30px;
+            border-radius: 10px;
+            position: relative;
+        }
+        
+        .review:before {
+            content: '"';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 60px;
+            color: var(--primary);
+            opacity: 0.2;
+            font-family: Georgia, serif;
+        }
+        
+        .review p {
+            margin-bottom: 20px;
+            font-style: italic;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .review-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .review-author img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+            object-fit: cover;
+        }
+        
+        .author-info h4 {
+            margin-bottom: 5px;
+            color: var(--dark);
+        }
+        
+        .author-info p {
+            color: #7f8c8d;
+            font-style: normal;
+            font-size: 14px;
+            margin: 0;
+        }
+        
+        /* FAQ */
+        .faq {
+            padding: 100px 0;
+            background-color: #f9f9f9;
+        }
+        
+        .accordion {
+            max-width: 800px;
+            margin: 50px auto 0;
+        }
+        
+        .accordion-item {
+            margin-bottom: 15px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .accordion-header {
+            background-color: white;
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .accordion-header:hover {
+            background-color: #f1f1f1;
+        }
+        
+        .accordion-header.active {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .accordion-content {
+            background-color: white;
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        
+        .accordion-content p {
+            padding: 20px 0;
+        }
+        
+        /* Контакты */
+        .contact {
+            padding: 100px 0;
+            background-color: white;
+        }
+        
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 50px;
+            margin-top: 50px;
+        }
+        
+        .contact-info h3 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: var(--dark);
+        }
+        
+        .contact-info p {
+            margin-bottom: 30px;
+        }
+        
+        .contact-details {
+            margin-bottom: 30px;
+        }
+        
+        .contact-details div {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .contact-details i {
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: var(--dark);
+            color: white;
+            border-radius: 50%;
+            margin-right: 10px;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .contact-form textarea {
+            height: 150px;
+            resize: vertical;
+        }
+        
+        /* Подвал */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 50px 0 20px;
+        }
+        
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-col h3 {
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+        
+        .footer-col ul {
+            list-style: none;
+        }
+        
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-col ul li a {
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-col ul li a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #bdc3c7;
+            font-size: 14px;
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 992px) {
+            .step:not(:last-child)::after {
+                display: none;
+            }
+            
+            .steps {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .step {
+                margin-bottom: 40px;
+                max-width: 300px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu {
+                display: block;
+            }
+            
+            .hero h2 {
+                font-size: 36px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+            
+            .btn {
+                display: block;
+                margin: 10px auto;
+                max-width: 200px;
+            }
+            
+            .btn-secondary {
+                margin-left: auto;
+            }
+        }
+   /* Модальное окно */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+.modal-window {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 90%;
+    width: 400px;
+}
+.modal-window h2 {
+    margin-bottom: 20px;
+}
+.modal-options {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+.modal-options .option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.modal-options img {
+    width: 100px;
+    height: auto;
+    margin-bottom: 10px;
+}
+   #intro-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #ecf0f1;
+    z-index: 9999;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    animation: fadeOut 1s ease 5s forwards;
+}
+
+.scooter-wrapper {
+    position: absolute;
+    bottom: 30%;
+    left: -200px;
+    display: flex;
+    align-items: center;
+    animation: moveRight 4s ease forwards;
+}
+
+.scooter-img {
+    width: 140px;
+    height: auto;
+}
+
+.leaves {
+    font-size: 28px;
+    color: #27ae60;
+    margin-left: 10px;
+    opacity: 0;
+    animation: showLeaves 1s ease-in 2s forwards;
+}
+
+.eco-text {
+    font-size: 42px;
+    font-weight: bold;
+    color: #2ecc71;
+    opacity: 0;
+    position: relative;
+    top: 80px;
+    animation: fadeInText 1s ease 4.2s forwards;
+}
+
+@keyframes moveRight {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(120vw); }
+}
+
+@keyframes showLeaves {
+    to { opacity: 1; transform: translateY(-10px); }
+}
+
+@keyframes fadeInText {
+    to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+    to { opacity: 0; visibility: hidden; }
+}
+  </style>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+   <script src="https://unpkg.com/html5-qrcode">
+    // QR-сканер после выбора
+function startScanner() {
+    const qrReader = document.getElementById("qr-reader");
+    qrReader.style.display = "block";
+    const html5QrCode = new Html5Qrcode("qr-reader");
+    Html5Qrcode.getCameras().then(devices => {
+        if (devices && devices.length) {
+            const cameraId = devices[0].id;
+            html5QrCode.start(
+                cameraId,
+                {
+                    fps: 10,
+                    qrbox: 250
+                },
+                qrCodeMessage => {
+                    alert("Сканирован QR-код: " + qrCodeMessage);
+                    html5QrCode.stop().then(() => {
+                        qrReader.style.display = "none";
+                    }).catch(err => console.error("Ошибка остановки камеры:", err));
+                },
+                errorMessage => {
+                    // console.warn(`QR-код не найден: ${errorMessage}`);
+                }
+            ).catch(err => {
+                console.error("Ошибка запуска камеры: ", err);
+            });
+        }
+    }).catch(err => {
+        console.error("Камера не найдена: ", err);
+    });
+}
+
+// Перехватываем кнопки
+document.querySelectorAll('#rentalModal .option button').forEach(button => {
+    button.addEventListener('click', (e) => {
+        e.preventDefault();
+        startScanner();
+    });
+});
+   </script>
+   <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU">
+   </script>
+  </link>
+ </head>
+ <body>
+  <div id="intro-animation">
+   <div class="scooter-wrapper">
+    <img alt="EcoBike Scooter" class="scooter-img" src="https://files.oaiusercontent.com/file-CaG7YmqH1UNqzfkgJ35H6n?se=2025-05-31T15%3A39%3A42Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D299%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3Decobike_scooter_flipped.png&sig=PpjIk1YtQFonxzOLPUFKpKUOzHMnVo8E24Tq3tKN7%2BQ%3D"/>
+    <div class="leaves">
+     🍃 🍃 🍃
+    </div>
+   </div>
+   <div class="eco-text">
+
+   </div>
+  </div>
+  <!-- Шапка -->
+  <header>
+   <div class="container">
+    <nav>
+     <div class="logo">
+      <img alt="EcoBike Logo" src="https://sdmntprwestus3.oaiusercontent.com/files/00000000-cce0-61fd-beb6-b572ac113ee2/raw?se=2025-05-31T16%3A25%3A30Z&sp=r&sv=2024-08-04&sr=b&scid=37e4519a-357d-5661-b664-43bfadb01a0e&skoid=24a7dec3-38fc-4904-b888-8abe0855c442&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-05-30T23%3A21%3A44Z&ske=2025-05-31T23%3A21%3A44Z&sks=b&skv=2024-08-04&sig=RKztIktRQEwb6SpDZKI8Ldr4dtJcAjovxTwXWzFyoRU%3D"/>
+      <h1>
+       EcoBike
+      </h1>
+     </div>
+     <ul class="nav-links">
+      <li>
+       <a href="#about">
+        О нас
+       </a>
+      </li>
+      <li>
+       <a href="#how-it-works">
+        Как это работает
+       </a>
+      </li>
+      <li>
+       <a href="#pricing">
+        Тарифы
+       </a>
+      </li>
+      <li>
+       <a href="#map">
+        Карта
+       </a>
+      </li>
+      <li>
+       <a href="#contact">
+        Контакты
+       </a>
+      </li>
+      <li>
+       <a href="#future">
+        Планы
+       </a>
+      </li>
+     </ul>
+     <div class="mobile-menu">
+      <i class="fas fa-bars">
+      </i>
+     </div>
+    </nav>
+   </div>
+  </header>
+  <!-- Герой секция -->
+  <section class="hero">
+   <div class="container">
+    <div class="hero-content">
+     <h2>
+      Умный транспорт для зеленого города
+     </h2>
+     <p>
+      Арендуйте электросамокаты и велосипеды в любом районе города. Быстро, удобно и экологично!
+     </p>
+     <a class="btn" href="#">
+      Скачать приложение
+     </a>
+     <a class="btn btn-secondary" href="#">
+      Начать аренду
+     </a>
+    </div>
+   </div>
+  </section>
+  <!-- О сервисе -->
+  <section class="about" id="about">
+   <div class="container">
+    <div class="section-title">
+     <h2>
+      Почему выбирают EcoBike?
+     </h2>
+     <p>
+      Наш сервис предлагает современное решение для городской мобильности с заботой об окружающей среде
+     </p>
+    </div>
+    <div class="features">
+     <div class="feature">
+      <i class="fas fa-bolt">
+      </i>
+      <h3>
+       Быстрая аренда
+      </h3>
+      <p>
+       Всего 3 шага отделяют вас от поездки. Без очередей и бумажной волокиты.
+      </p>
+     </div>
+     <div class="feature">
+      <i class="fas fa-leaf">
+      </i>
+      <h3>
+       Экологично
+      </h3>
+      <p>
+       Зарядка от солнечных панелей. Снижаем углеродный след города.
+      </p>
+     </div>
+     <div class="feature">
+      <i class="fas fa-map-marked-alt">
+      </i>
+      <h3>
+       Удобная парковка
+      </h3>
+      <p>
+       Более 100 станций по всему городу. Оставляйте транспорт в любой точке.
+      </p>
+     </div>
+    </div>
+   </div>
+  </section>
+  <!-- Как это работает -->
+  <section class="how-it-works" id="how-it-works">
+   <div class="container">
+    <div class="section-title">
+     <h2>
+      Как это работает?
+     </h2>
+     <p>
+      Всего несколько простых шагов для начала поездки
+     </p>
+    </div>
+    <div class="steps">
+     <div class="step">
+      <div class="step-number">
+       1
+      </div>
+      <h3>
+       Скачайте приложение
+      </h3>
+      <p>
+       Установите наше приложение из App Store или Google Play и зарегистрируйтесь
+      </p>
+     </div>
+     <div class="step">
+      <div class="step-number">
+       2
+      </div>
+      <h3>
+       Найдите транспорт
+      </h3>
+      <p>
+       Откройте карту в приложении и выберите ближайший самокат или велосипед
+      </p>
+     </div>
+     <div class="step">
+      <div class="step-number">
+       3
+      </div>
+      <h3>
+       Отсканируйте QR-код
+      </h3>
+      <p>
+       Наведите камеру на QR-код на транспорте для разблокировки
+      </p>
+     </div>
+     <div class="step">
+      <div class="step-number">
+       4
+      </div>
+      <h3>
+       Наслаждайтесь поездкой
+      </h3>
+      <p>
+       Оплата происходит автоматически по завершении поездки
+      </p>
+     </div>
+    </div>
+   </div>
+  </section>
+  <!-- Тарифы -->
+  <section class="pricing" id="pricing">
+   <div class="container">
+    <div class="section-title">
+     <h2>
+      Наши тарифы
+     </h2>
+     <p>
+      Выберите подходящий вариант для ваших поездок
+     </p>
+    </div>
+    <div class="plans">
+     <div class="plan">
+      <div class="plan-header">
+       <h3>
+        Стандарт
+       </h3>
+       <div class="price">
+        10
+        <span>
+         руб/мин
+        </span>
+       </div>
+      </div>
+      <div class="plan-body">
+       <ul>
+        <li>
+         <i class="fas fa-check">
+         </i>
+         Оплата по минутам
+        </li>
+        <li>
+         <i class="fas fa-check">
+         </i>
+         Без ограничений
+        </li>
+        <li>
+         <i class="fas fa-check">
+         </i>
+         Все районы города
+        </li>
+        <li>
+         <i class="fas fa-check">
+         </i>
+         Круглосуточная поддержка
+        </li>
+       </ul>
+       <a class="btn" href="#">
+        Выбрать
+       </a>
+      </div>
+     </div>
+     <div class="plan">
+      <div class="plan-header">
+       <h3>
+        Суточный
+       </h3>
+       <div class="price">
+        500
+        <span>
+         руб/день
+        </span>
+       </div>
+      </div>
+      <div class="plan-body">
+       <ul>
+        <li>
+         <i class="fas fa-check">
+         </i>
+         Неограниченные поездки
+        </li>
+        <li>
+         <i class="fas fa-check">
+         </i>
+         До 24 часов
+        </li>
+        <li>
+         <i class="fas fa-check">
+         </i>
+         Все районы города
+        </li>
+        <li>
+         <i class="fas fa-check">
+         </i>
+         Приоритетная поддержка
+        </li>
+       </ul>
+       <a class="btn" href="#">
+        Выбрать
+       </a>
+      </div>
+     </div>
+     <div class="plan">
+      <div class="plan-header">
+       <h3>
+        Подписка
+       </h3>
+       <div class="price">
+        1000
+        <span>
+         руб/мес
+        </span>
+       </div>
+      </div>
+      <div class="plan-body">
+       <ul>
+        <li>
+         <i class="fas fa-check">
+         </i>
+         Неограниченные поездки
+        </li>
+        <li>
+         <i class="fas fa-check">
+         </i>
+         До 60 минут в день
+        </li>
+        <li>
+         <i class="fas fa-check">
+         </i>
+         Скидка 20% на доп. минуты
+        </li>
+        <li>
+         <i class="fas fa-check">
+         </i>
+         Персональный менеджер
+        </li>
+       </ul>
+       <a class="btn" href="#">
+        Выбрать
+       </a>
+      </div>
+     </div>
+    </div>
+   </div>
+  </section>
+  <!-- Карта -->
+  <section class="map" id="map">
+   <div class="container">
+    <div class="section-title">
+     <h2>
+      Наши станции
+     </h2>
+     <p>
+      Найдите ближайшую станцию проката на карте
+     </p>
+    </div>
+    <div id="station-map">
+    </div>
+    <div style="text-align: center; margin-top: 20px;">
+     <button class="btn btn-primary" onclick="findBeautifulPlace()">
+      Найти красивое место для прогулки
+     </button>
+    </div>
+   </div>
+  </section>
+  <!-- Отзывы -->
+  <section class="about" id="future">
+   <div class="container">
+    <div class="section-title">
+     <h2>
+      Планы развития EcoBike
+     </h2>
+     <p>
+      Наша миссия — не только развивать устойчивый транспорт, но и внедрять инновации для городов будущего
+     </p>
+    </div>
+    <div class="features">
+     <div class="feature">
+      <i class="fas fa-solar-panel">
+      </i>
+      <h3>
+       Расширение сети зарядных станций
+      </h3>
+      <p>
+       Планируется установить 200+ новых станций с солнечными панелями по всей России
+      </p>
+     </div>
+     <div class="feature">
+      <i class="fas fa-mobile-alt">
+      </i>
+      <h3>
+       Умное приложение 2.0
+      </h3>
+      <p>
+       Добавим маршруты, экостатистику поездок, скидки за «эко-километры» и персональные предложения
+      </p>
+     </div>
+     <div class="feature">
+      <i class="fas fa-globe-europe">
+      </i>
+      <h3>
+       Выход на международный рынок
+      </h3>
+      <p>
+       Запуск пилотных станций в странах СНГ — Казахстан, Беларусь и Армения
+      </p>
+     </div>
+     <div class="feature">
+      <i class="fas fa-car-battery">
+      </i>
+      <h3>
+       Внедрение электрокаров
+      </h3>
+      <p>
+       Мы планируем расширить автопарк и добавить в прокат компактные городские электромобили с зарядкой от солнечных станций.
+      </p>
+     </div>
+     <div class="feature">
+      <i class="fas fa-network-wired">
+      </i>
+      <h3>
+       Интеграция с городским транспортом
+      </h3>
+      <p>
+       EcoBike станет частью городской транспортной системы: единый билет, интеграция с метро и автобусами.
+      </p>
+     </div>
+     <div class="feature">
+      <i class="fas fa-user-friends">
+      </i>
+      <h3>
+       Корпоративные тарифы
+      </h3>
+      <p>
+       Запуск специальных тарифов для компаний и организаций с приоритетным обслуживанием и отчётностью.
+      </p>
+     </div>
+    </div>
+   </div>
+  </section>
+  <section class="testimonials">
+   <div class="container">
+    <div class="section-title">
+     <h2>
+      Отзывы наших клиентов
+     </h2>
+     <p>
+      Что говорят люди, которые уже пользуются нашим сервисом
+     </p>
+    </div>
+    <div class="reviews">
+     <div class="review">
+      <p>
+       Очень удобный сервис! Теперь всегда пользуюсь EcoBike для поездок на работу. Экономия времени и денег на парковке.
+      </p>
+      <div class="review-author">
+       <img alt="Анна" src="https://randomuser.me/api/portraits/women/43.jpg"/>
+       <div class="author-info">
+        <h4>
+         Анна К.
+        </h4>
+        <p>
+         Пользователь с 2023
+        </p>
+       </div>
+      </div>
+     </div>
+     <div class="review">
+      <p>
+       Отличное решение для коротких поездок по городу. Самокаты всегда в хорошем состоянии, приложение работает без сбоев.
+      </p>
+      <div class="review-author">
+       <img alt="Дмитрий" src="https://randomuser.me/api/portraits/men/32.jpg"/>
+       <div class="author-info">
+        <h4>
+         Дмитрий С.
+        </h4>
+        <p>
+         Пользователь с 2022
+        </p>
+       </div>
+      </div>
+     </div>
+     <div class="review">
+      <p>
+       Подкупает экологичность проекта. Приятно осознавать, что мои поездки не вредят окружающей среде. Рекомендую!
+      </p>
+      <div class="review-author">
+       <img alt="Елена" src="https://randomuser.me/api/portraits/women/65.jpg"/>
+       <div class="author-info">
+        <h4>
+         Елена М.
+        </h4>
+        <p>
+         Пользователь с 2024
+        </p>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </section>
+  <!-- FAQ -->
+  <section class="faq">
+   <div class="container">
+    <div class="section-title">
+     <h2>
+      Часто задаваемые вопросы
+     </h2>
+     <p>
+      Ответы на самые популярные вопросы о нашем сервисе
+     </p>
+    </div>
+    <div class="accordion">
+     <div class="accordion-item">
+      <div class="accordion-header">
+       <span>
+        Как оплатить поездку?
+       </span>
+       <i class="fas fa-chevron-down">
+       </i>
+      </div>
+      <div class="accordion-content">
+       <p>
+        Оплата происходит автоматически через привязанную банковскую карту в нашем мобильном приложении. Мы принимаем Visa, Mastercard, МИР, а также Apple Pay и Google Pay.
+       </p>
+      </div>
+     </div>
+     <div class="accordion-item">
+      <div class="accordion-header">
+       <span>
+        Где можно оставить транспорт?
+       </span>
+       <i class="fas fa-chevron-down">
+       </i>
+      </div>
+      <div class="accordion-content">
+       <p>
+        Вы можете оставить транспорт в любой точке города в пределах обслуживаемой зоны (отмечена на карте в приложении). Для удобства рекомендуем использовать специальные парковочные зоны.
+       </p>
+      </div>
+     </div>
+     <div class="accordion-item">
+      <div class="accordion-header">
+       <span>
+        Что делать при поломке?
+       </span>
+       <i class="fas fa-chevron-down">
+       </i>
+      </div>
+      <div class="accordion-content">
+       <p>
+        Если вы обнаружили неисправность, сообщите об этом через приложение или по телефону поддержки. Мы бесплатно эвакуируем транспорт и предложим вам скидку на следующую поездку.
+       </p>
+      </div>
+     </div>
+     <div class="accordion-item">
+      <div class="accordion-header">
+       <span>
+        Есть ли ограничения по возрасту?
+       </span>
+       <i class="fas fa-chevron-down">
+       </i>
+      </div>
+      <div class="accordion-content">
+       <p>
+        Да, для использования нашего сервиса вам должно быть не менее 18 лет. Для аренды электросамокатов требуется наличие водительского удостоверения любой категории.
+       </p>
+      </div>
+     </div>
+    </div>
+   </div>
+  </section>
+  <!-- Контакты -->
+  <section class="contact" id="contact">
+   <div class="container">
+    <div class="section-title">
+     <h2>
+      Свяжитесь с нами
+     </h2>
+     <p>
+      Мы всегда рады ответить на ваши вопросы
+     </p>
+    </div>
+    <div class="contact-container">
+     <div class="contact-info">
+      <h3>
+       Контактная информация
+      </h3>
+      <p>
+       Если у вас есть вопросы или предложения, заполните форму или свяжитесь с нами напрямую
+      </p>
+      <div class="contact-details">
+       <div>
+        <i class="fas fa-map-marker-alt">
+        </i>
+        <span>
+         г. Москва, ул. Экологичная, 15
+        </span>
+       </div>
+       <div>
+        <i class="fas fa-phone-alt">
+        </i>
+        <span>
+         +7 (495) 123-45-67
+        </span>
+       </div>
+       <div>
+        <i class="fas fa-envelope">
+        </i>
+        <span>
+         info@ecobike.ru
+        </span>
+       </div>
+      </div>
+      <div class="social-links">
+       <a href="#">
+        <i class="fab fa-vk">
+        </i>
+       </a>
+       <a href="#">
+        <i class="fab fa-telegram">
+        </i>
+       </a>
+       <a href="#">
+        <i class="fab fa-instagram">
+        </i>
+       </a>
+       <a href="#">
+        <i class="fab fa-youtube">
+        </i>
+       </a>
+      </div>
+     </div>
+     <div class="contact-form">
+      <form>
+       <input placeholder="Ваше имя" required="" type="text"/>
+       <input placeholder="Ваш email" required="" type="email"/>
+       <input placeholder="Ваш телефон" type="tel"/>
+       <textarea placeholder="Ваше сообщение" required=""></textarea>
+       <button class="btn" type="submit">
+        Отправить
+       </button>
+      </form>
+     </div>
+    </div>
+   </div>
+  </section>
+  <!-- Подвал -->
+  <footer>
+   <div class="container">
+    <div class="footer-container">
+     <div class="footer-col">
+      <h3>
+       EcoBike
+      </h3>
+      <p>
+       Сервис аренды электросамокатов и велосипедов для современного города.
+      </p>
+     </div>
+     <div class="footer-col">
+      <h3>
+       Меню
+      </h3>
+      <ul>
+       <li>
+        <a href="#about">
+         О нас
+        </a>
+       </li>
+       <li>
+        <a href="#how-it-works">
+         Как это работает
+        </a>
+       </li>
+       <li>
+        <a href="#pricing">
+         Тарифы
+        </a>
+       </li>
+       <li>
+        <a href="#map">
+         Карта
+        </a>
+       </li>
+      </ul>
+     </div>
+     <div class="footer-col">
+      <h3>
+       Поддержка
+      </h3>
+      <ul>
+       <li>
+        <a href="#">
+         FAQ
+        </a>
+       </li>
+       <li>
+        <a href="#">
+         Правила использования
+        </a>
+       </li>
+       <li>
+        <a href="#">
+         Политика конфиденциальности
+        </a>
+       </li>
+       <li>
+        <a href="#">
+         Оферта
+        </a>
+       </li>
+      </ul>
+     </div>
+     <div class="footer-col">
+      <h3>
+       Скачайте приложение
+      </h3>
+      <div class="app-download">
+       <a href="#">
+        <img alt="App Store" src="https://via.placeholder.com/120x40"/>
+       </a>
+       <a href="#">
+        <img alt="Google Play" src="https://via.placeholder.com/120x40"/>
+       </a>
+      </div>
+     </div>
+    </div>
+    <div class="copyright">
+     <p>
+      © 2024 EcoBike. Все права защищены.
+     </p>
+    </div>
+   </div>
+  </footer>
+  <script>
+   ymaps.ready(function () {
+            window.map = new ymaps.Map("station-map", {
+                center: [55.7558, 37.6173],
+                zoom: 12
+            });
+
+            var stations = [
+                { name: "Станция Арбат", coords: [55.752023, 37.604074] },
+                { name: "Станция Парк Горького", coords: [55.7308, 37.6033] },
+                { name: "Станция ВДНХ", coords: [55.8299, 37.6334] }
+            ];
+
+            stations.forEach(function(station) {
+                var placemark = new ymaps.Placemark(station.coords, {
+                    balloonContent: station.name
+                });
+                map.geoObjects.add(placemark);
+            });
+        });
+  
+
+function findBeautifulPlace() {
+    if (!ymaps || !navigator.geolocation) {
+        alert("Геолокация или карта недоступны.");
+        return;
+    }
+
+    navigator.geolocation.getCurrentPosition(function(position) {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+
+        // Генерация случайной точки в пределах 1.5 км
+        const radius = 0.015; // ~1.5 км
+        const randomLat = lat + (Math.random() - 0.5) * radius * 2;
+        const randomLon = lon + (Math.random() - 0.5) * radius * 2;
+
+        const randomPoint = new ymaps.Placemark(
+            [randomLat, randomLon],
+            { balloonContent: "🌿 Случайное место — исследуйте окрестности!" },
+            { preset: "islands#greenDotIcon" }
+        );
+
+        map.geoObjects.add(randomPoint);
+        map.setCenter([randomLat, randomLon], 15);
+    }, function(error) {
+        alert("Не удалось получить координаты: " + error.message);
+    });
+}
+  </script>
+  <!-- Модальное окно выбора транспорта -->
+  <div class="modal-overlay" id="rentalModal" style="display:none;">
+   <div class="modal-window">
+    <h2>
+     Вы хотите арендовать:
+    </h2>
+    <div class="modal-options">
+     <div class="option">
+      <img alt="Велосипед" src="https://sdmntprsouthcentralus.oaiusercontent.com/files/00000000-65b0-61f7-85bc-47d2b6d5d4b1/raw?se=2025-05-31T16%3A25%3A30Z&sp=r&sv=2024-08-04&sr=b&scid=a40a7b23-8ff2-59ad-b4f2-a971e001d83f&skoid=24a7dec3-38fc-4904-b888-8abe0855c442&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-05-30T23%3A24%3A02Z&ske=2025-05-31T23%3A24%3A02Z&sks=b&skv=2024-08-04&sig=Gm1ptR82kZCGyVXJPDHfCsMB0OxX0RsF%2B6O/1UJiTgM%3D"/>
+      <button class="btn">
+       Велосипед
+      </button>
+     </div>
+     <div class="option">
+      <img alt="Самокат" src="https://sdmntprcentralus.oaiusercontent.com/files/00000000-a910-61f5-a6e6-18ec5c752e6f/raw?se=2025-05-31T16%3A25%3A30Z&sp=r&sv=2024-08-04&sr=b&scid=358d4588-1c45-5fcc-96c0-0763b84a2439&skoid=24a7dec3-38fc-4904-b888-8abe0855c442&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-05-30T23%3A38%3A53Z&ske=2025-05-31T23%3A38%3A53Z&sks=b&skv=2024-08-04&sig=XSAEJ2fN71ymTY5xkhPeT%2BB5GFfMRXJT6aTU%2BMkbZVg%3D"/>
+      <button class="btn">
+       Электросамокат
+      </button>
+     </div>
+    </div>
+    <button class="btn btn-secondary" onclick="closeRentalModal()">
+     Отмена
+    </button>
+   </div>
+   <!-- Контейнер для сканера -->
+   <div id="qr-reader" style="width: 100%; max-width: 300px; margin: 20px auto; display: none;">
+   </div>
+  </div>
+  <script>
+   document.querySelector('.btn.btn-secondary').addEventListener('click', function(e) {
+    e.preventDefault();
+    document.getElementById('rentalModal').style.display = 'flex';
+});
+
+function closeRentalModal() {
+    document.getElementById('rentalModal').style.display = 'none';
+}
+
+// QR-сканер после выбора
+function startScanner() {
+    const qrReader = document.getElementById("qr-reader");
+    qrReader.style.display = "block";
+    const html5QrCode = new Html5Qrcode("qr-reader");
+    Html5Qrcode.getCameras().then(devices => {
+        if (devices && devices.length) {
+            const cameraId = devices[0].id;
+            html5QrCode.start(
+                cameraId,
+                { fps: 10, qrbox: 250 },
+                qrCodeMessage => {
+                    alert("Сканирован QR-код: " + qrCodeMessage);
+                    html5QrCode.stop().then(() => {
+                        qrReader.style.display = "none";
+                    }).catch(err => console.error("Ошибка остановки камеры:", err));
+                },
+                errorMessage => {}
+            ).catch(err => console.error("Ошибка запуска камеры: ", err));
+        }
+    }).catch(err => console.error("Камера не найдена: ", err));
+}
+
+document.querySelectorAll('#rentalModal .option button').forEach(button => {
+    button.addEventListener('click', (e) => {
+        e.preventDefault();
+        startScanner();
+    });
+});
+  </script>
+  <script>
+   document.querySelectorAll('.accordion-header').forEach(header => {
+    header.addEventListener('click', () => {
+        const content = header.nextElementSibling;
+        const isActive = header.classList.contains('active');
+        document.querySelectorAll('.accordion-header').forEach(h => h.classList.remove('active'));
+        document.querySelectorAll('.accordion-content').forEach(c => c.style.maxHeight = null);
+        if (!isActive) {
+            header.classList.add('active');
+            content.style.maxHeight = content.scrollHeight + 'px';
+        }
+    });
+});
+  </script>
+ </body>
+</html>
